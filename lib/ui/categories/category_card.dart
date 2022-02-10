@@ -31,8 +31,8 @@ class CategoryCard extends StatelessWidget with Utility {
             Icons.apps_outlined,
             color: Colors.white,
             size: 40,
-          )
-              : Image.network(
+          ) : Image.network(
+            /// the categories images must be without backgrounds!!
             logoPath ?? "",
           ),
         ),
