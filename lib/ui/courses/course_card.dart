@@ -20,9 +20,10 @@ class CourseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.only(
-          start: 4.0, end: 4.0, bottom: 8.0),
+      padding: const EdgeInsetsDirectional.only(bottom: 24.0),
       child: Container(
+      padding: const EdgeInsetsDirectional.only(
+      start: 4.0, end: 4.0, bottom: 24.0),
         decoration: BoxDecoration(
           borderRadius: borderRadius,
           color: Colors.white,
@@ -113,7 +114,7 @@ class CourseCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 4.0,
+                    height: 2.0,
                   ),
                   Text(
                     activitiesAndCoursesProvider
@@ -129,7 +130,7 @@ class CourseCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 8.0,
+                    height: 2.0,
                   ),
                   Row(
                     children: [
@@ -153,7 +154,7 @@ class CourseCard extends StatelessWidget {
                             TextAlign.start,
                             style:
                             const TextStyle(
-                                fontSize: 10,
+                                fontSize: 8,
                                 color: Colors
                                     .black),
                           ),
@@ -190,7 +191,7 @@ class CourseCard extends StatelessWidget {
                             TextAlign.start,
                             style:
                             const TextStyle(
-                                fontSize: 10,
+                                fontSize: 8,
                                 color: Colors
                                     .black),
                           ),

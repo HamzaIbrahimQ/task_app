@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_app/constants/constatnts.dart';
-import 'package:task_app/ui/home_page.dart';
 import 'package:task_app/util/progress_hud.dart';
-import '../main.dart';
-import '../providers/loginProvider/login_provider.dart';
+import '../../providers/loginProvider/login_provider.dart';
 import 'package:task_app/util/utility.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,18 +11,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> with Utility {
-  TextEditingController _userNameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final _passwordFocusNode = FocusNode();
 
   final _formKey = GlobalKey<FormState>();
 
   String dropDownValue = dropDownList[0];
-  bool _isLoading = false;
 
   @override
   void initState() {
-    _getToken();
+    // _getToken();
     super.initState();
   }
 
@@ -39,18 +35,18 @@ class _LoginPageState extends State<LoginPage> with Utility {
 
   // String token = "";
 
-  Future<String> _getToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    token = prefs.getString('token') ?? "";
-    print("token is  : " + token);
-    return token;
-  }
+  // Future<String> _getToken() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   token = prefs.getString('token') ?? "";
+  //   print("token is  : " + token);
+  //   return token;
+  // }
 
-  _getActivitiesAndCourses() async {
-    _getToken().then((value) {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
-    });
-  }
+  // _getActivitiesAndCourses() async {
+  //   _getToken().then((value) {
+  //     Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+  //   });
+  // }
 
 
   _login() async {
@@ -78,6 +74,7 @@ class _LoginPageState extends State<LoginPage> with Utility {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         backgroundColor: backgroundColor,
         body: SingleChildScrollView(
           child: Column(
@@ -97,10 +94,7 @@ class _LoginPageState extends State<LoginPage> with Utility {
                     top: 80,
                     right: 20,
                     child: InkWell(
-                      onTap: () => showToast(
-                          context: context,
-                          msg: 'تم الضغط على الزر',
-                          state: true),
+                      onTap: () {},
                       child: Row(
                         children: [
                           Container(
@@ -201,8 +195,8 @@ class _LoginPageState extends State<LoginPage> with Utility {
                                         fontWeight: FontWeight.bold),
                                     errorMaxLines: 2,
                                     suffixIcon: Container(
-                                      margin: const EdgeInsets.only(left: 10),
-                                      width: 90,
+                                      margin: const EdgeInsets.only(left: 8.0),
+                                      width: 80,
                                       decoration: BoxDecoration(
                                         borderRadius: borderRadius,
                                         color: mainColor,
@@ -215,9 +209,12 @@ class _LoginPageState extends State<LoginPage> with Utility {
                                             fontSize: 16.0, color: Colors.white),
                                         isExpanded: true,
                                         borderRadius: borderRadius,
-                                        icon: const Icon(
-                                          Icons.keyboard_arrow_down_rounded,
-                                          color: Colors.white,
+                                        icon: const Padding(
+                                          padding: EdgeInsetsDirectional.only(end: 4.0),
+                                          child: Icon(
+                                            Icons.keyboard_arrow_down_rounded,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                         onChanged: (value) {
                                           setState(() {
@@ -270,7 +267,6 @@ class _LoginPageState extends State<LoginPage> with Utility {
                                     errorBorder: outlineInputBorder,
                                     focusedBorder: outlineInputBorder,
                                     hintText: 'كلمة السر',
-
                                     hintStyle: const TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
@@ -286,11 +282,7 @@ class _LoginPageState extends State<LoginPage> with Utility {
                                   height: 16.0,
                                 ),
                                 InkWell(
-                                  onTap: () => _getToken(),
-                                  // showToast(
-                                  // context: context,
-                                  // msg: 'تم الضغط على الزر',
-                                  // state: true),
+                                  onTap: () {},
                                   child: const Padding(
                                     padding: EdgeInsetsDirectional.only(
                                         start: 16.0),
@@ -321,12 +313,7 @@ class _LoginPageState extends State<LoginPage> with Utility {
                                   width: double.infinity,
                                   height: 56.0,
                                   child: ElevatedButton(
-                                    child: _isLoading
-                                        ? const CircularProgressIndicator(
-                                            color: Colors.red,
-                                            backgroundColor: Colors.green,
-                                          )
-                                        : const Text('دخول'),
+                                    child: const Text('دخول'),
                                     style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateProperty.all(mainColor),
@@ -388,9 +375,7 @@ class _LoginPageState extends State<LoginPage> with Utility {
                 width: 4,
               ),
               InkWell(
-                onTap: () {
-                  _getActivitiesAndCourses();
-                },
+                onTap: () {},
                 child: const Text(
                   'انشاء حساب',
                   style: TextStyle(

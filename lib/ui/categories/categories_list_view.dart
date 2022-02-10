@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_app/providers/homeProvider/categories/categories_provider.dart';
 
-import 'category_widget.dart';
+import 'category_card.dart';
 
 
 
@@ -24,7 +24,7 @@ class CategoriesList extends StatelessWidget {
           return Padding(
             padding: const EdgeInsetsDirectional.only(
                 end: 16.0, start: 4.0),
-            child: CategoryWidget(
+            child: CategoryCard(
               title: categoriesProvider
                   .categories[index].name ??
                   "empty",

@@ -4,24 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_app/constants/constatnts.dart';
-import 'package:task_app/ui/bottom_nav_bar.dart';
-import 'package:task_app/ui/section_title.dart';
-import '../main.dart';
-import '../providers/homeProvider/activitiesAndCources/activities_and_cources_provider.dart';
-import '../providers/homeProvider/categories/categories_provider.dart';
-import 'package:task_app/ui/login_page.dart';
+import '../../components/bottom_nav_bar.dart';
+import '../../components/section_title.dart';
+import '../../providers/homeProvider/activitiesAndCources/activities_and_cources_provider.dart';
+import '../../providers/homeProvider/categories/categories_provider.dart';
+import 'login_page.dart';
 import 'package:task_app/util/progress_hud.dart';
 
 import 'package:task_app/util/utility.dart';
 
-import 'activities_list_view.dart';
-import 'categories_list_view.dart';
-import 'category_widget.dart';
-import 'course_card.dart';
+import '../activities/activities_list_view.dart';
+import '../categories/categories_list_view.dart';
+import '../categories/category_card.dart';
+import '../courses/courses_list_view.dart';
 
 
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -30,23 +31,23 @@ class _HomePageState extends State<HomePage> with Utility {
 
   int selectedPosition = 0;
 
-
+  String _token = "";
   Future<String> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
-    token = prefs.getString('token') ?? "";
-    return token;
+    _token = prefs.getString('token') ?? "";
+    return _token;
   }
 
   _getData() async {
     ProgressHud.shared.startLoading(context);
     await Provider.of<CategoriesProvider>(context, listen: false)
-        .getCategories(isActivities: false, token: token, context: context);
+        .getCategories(isActivities: false, token: _token, context: context);
     await Provider.of<ActivitiesAndCoursesProvider>(context, listen: false)
         .getActivitiesAndCourses(
-        isActivities: false, token: token, context: context);
+        isActivities: false, token: _token, context: context);
     await Provider.of<ActivitiesAndCoursesProvider>(context, listen: false)
         .getActivitiesAndCourses(
-        isActivities: true, token: token, context: context).then((value) {
+        isActivities: true, token: _token, context: context).then((value) {
       ProgressHud.shared.stopLoading();
     });
   }
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage> with Utility {
           backgroundColor: mainColor,
           appBar: getAppBar(context: context, title: "الرئيسية"),
           body: Container(
-            color: Colors.white,
+            color: greyColor,
             child: Column(
               children: [
                 Container(
@@ -96,7 +97,7 @@ class _HomePageState extends State<HomePage> with Utility {
                                 builder: (context) => LoginPage())),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.only(end: 8.0),
-                          child: CategoryWidget(
+                          child: CategoryCard(
                             title: "عرض الكل",
                             isShowAll: true,
                           ),
@@ -119,7 +120,7 @@ class _HomePageState extends State<HomePage> with Utility {
                 Expanded(
                   child: Container(
                     padding: const EdgeInsetsDirectional.only(
-                        start: 16.0, end: 16.0, top: 24.0, bottom: 16.0),
+                        start: 16.0, end: 16.0, top: 24.0, bottom: 0.0),
                     decoration: const BoxDecoration(
                       color: greyColor,
                       borderRadius: BorderRadius.only(
@@ -128,7 +129,7 @@ class _HomePageState extends State<HomePage> with Utility {
                       ),
                     ),
                     child: SingleChildScrollView(
-                      child: Column(
+                      child: Wrap(
                         children: [
                           SectionTitle(borderRadius: borderRadius, title: "الفعاليات والأنشطة",),
                           Padding(
@@ -140,29 +141,15 @@ class _HomePageState extends State<HomePage> with Utility {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.only(
-                                top: 4.0, bottom: 8.0),
+                            padding: const EdgeInsetsDirectional.only(bottom: 16.0),
                             child:  SectionTitle(borderRadius: borderRadius, title: "الدورات",),
                           ),
-                          Container(
-                            height: 400,
-                            padding:
-                                const EdgeInsetsDirectional.only(bottom: 140),
-                            child: GridView.builder(
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        mainAxisExtent: 260,
-                                        crossAxisSpacing: 16,
-                                        mainAxisSpacing: 24,
-                                        childAspectRatio: 0.7),
-                                physics: const BouncingScrollPhysics(),
-                                itemCount:
-                                    activitiesAndCoursesProvider.courses.length,
-                                itemBuilder: (context, index) {
-                                  return CourseCard(borderRadius: borderRadius, activitiesAndCoursesProvider: activitiesAndCoursesProvider, index: index);
-                                }),
-                          ),
+                         Container(
+                           height: 400,
+                           width: double.infinity,
+                           padding: const EdgeInsetsDirectional.only(bottom: 180),
+                           child: CoursesList(activitiesAndCoursesProvider: activitiesAndCoursesProvider, borderRadius: borderRadius),
+                         ),
                         ],
                       ),
                     ),
@@ -183,7 +170,6 @@ class _HomePageState extends State<HomePage> with Utility {
                 ),
               ),
               Container(
-
                 padding: const EdgeInsetsDirectional.only(top: 8.0),
                 child: const Text('طلب جديد'),
               ),
@@ -198,6 +184,8 @@ class _HomePageState extends State<HomePage> with Utility {
 
 
 }
+
+
 
 
 

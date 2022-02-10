@@ -18,25 +18,12 @@ class LogInRepository with Utility {
     LoginModel loginResponse = LoginModel();
     try {
       var responseJson = await http.post(Uri.parse(baseUrl+loginEnp), body: jsonEncode(body), headers: {"Content-Type" : "application/json"});
-      // if (responseJson.statusCode == 200) {
         loginResponse = LoginModel.fromJson(jsonDecode(responseJson.body));
         log(responseJson.body);
         return loginResponse;
-      // }
-      // else {
-        print("status code is : " + responseJson.statusCode.toString());
-        return loginResponse;
-      // }
-
     } catch (error) {
       log("login error : ${error.toString()}");
       return loginResponse;
     }
   }
-
-// Future<bool> isLoggedIn() async {
-//   bool result = await _userInfoDao.checkUserInfo();
-//   return result;
-// }
-
 }

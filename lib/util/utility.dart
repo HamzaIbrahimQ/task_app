@@ -6,6 +6,7 @@ import 'package:task_app/constants/constatnts.dart';
 
 
 
+
 mixin Utility {
   Future showDialogSheet(BuildContext context, Widget child,
       {bool? isDismissible}) {
@@ -199,102 +200,5 @@ mixin Utility {
       ],
     );
   }
-
-// showAlertDialog(
-//     {BuildContext? context,
-//       String? title,
-//       String? msg,
-//       AlertDialogCallBack? listener,
-//       String? action}) {
-//   showDialog(
-//       context: context!,
-//       builder: (BuildContext context) {
-//         return Dialog(
-//           shape: RoundedRectangleBorder(
-//               borderRadius: BorderRadius.circular(20.0)),
-//           child: Wrap(
-//             children: [
-//               Column(
-//                 children: [
-//                   if (title != null)
-//                     Column(children: [
-//                       Container(
-//                         height: 20,
-//                       ),
-//                       Padding(
-//                         padding: const EdgeInsets.all(8.0),
-//                         child: getNafithTextView(
-//                             title: title,
-//                             styleId: 3,
-//                             fontSize: 3,
-//                             color: Colors.black,
-//                             textAlign: TextAlign.center,
-//                             context: context),
-//                       ),
-//                     ]),
-//                   Container(
-//                     height: 15.0,
-//                   ),
-//                   Padding(
-//                     padding: const EdgeInsets.all(8.0),
-//                     child: getNafithTextView(
-//                         title: msg ?? "",
-//                         styleId: 3,
-//                         fontSize: 3,
-//                         color: Colors.grey[600]!,
-//                         textAlign: TextAlign.center,
-//                         context: context),
-//                   ),
-//                   Container(
-//                     height: 10,
-//                   ),
-//                   const Divider(
-//                     color: Colors.grey,
-//                     thickness: 1.0,
-//                   ),
-//                   Padding(
-//                     padding: const EdgeInsetsDirectional.only(
-//                         top: 0, start: 32.0, bottom: 0, end: 32.0),
-//                     child: Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                         children: <Widget>[
-//                           TextButton(
-//                             onPressed: () {
-//                               listener!
-//                                   .onDialogConfirm(context, action ?? "");
-//                             },
-//                             child: getNafithTextView(
-//                                 title: S.of(context).OK,
-//                                 color: appGreen01,
-//                                 fontSize: 3,
-//                                 styleId: 3,
-//                                 context: context),
-//                           ),
-//                           Container(
-//                             width: 10,
-//                           ),
-//                           TextButton(
-//                             onPressed: () {
-//                               listener!.onDialogCancel(context);
-//                             },
-//                             child: getNafithTextView(
-//                                 title: S.of(context).CANCEL,
-//                                 color: appColorPink,
-//                                 fontSize: 3,
-//                                 styleId: 3,
-//                                 context: context),
-//                           ),
-//                         ]),
-//                   ),
-//                 ],
-//               ),
-//             ],
-//           ),
-//         );
-//       });
-// }
-//
-//
-//
 
 }

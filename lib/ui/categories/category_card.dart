@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:task_app/util/utility.dart';
 
 
-class CategoryWidget extends StatelessWidget with Utility {
+class CategoryCard extends StatelessWidget with Utility {
   final String title;
   final String? logoPath;
   final bool? isShowAll;
 
-  CategoryWidget({
+  CategoryCard({
     required this.title,
     this.logoPath,
     this.isShowAll,
