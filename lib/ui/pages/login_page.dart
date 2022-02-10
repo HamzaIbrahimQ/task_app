@@ -11,9 +11,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> with Utility {
-  final TextEditingController _userNameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final _passwordFocusNode = FocusNode();
+  late TextEditingController _userNameController;
+  late TextEditingController _passwordController;
+  late FocusNode _passwordFocusNode;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -21,7 +21,9 @@ class _LoginPageState extends State<LoginPage> with Utility {
 
   @override
   void initState() {
-    // _getToken();
+    _userNameController = TextEditingController();
+    _passwordController = TextEditingController();
+    _passwordFocusNode = FocusNode();
     super.initState();
   }
 

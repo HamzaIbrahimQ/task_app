@@ -30,14 +30,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with Utility {
 
   int selectedPosition = 0;
-
   String _token = "";
+
+
+  // We need this function to get the user Token, to send it in the Api request
   Future<String> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
     _token = prefs.getString('token') ?? "";
     return _token;
   }
 
+  // This function will call the Api services and get data
   _getData() async {
     ProgressHud.shared.startLoading(context);
     await Provider.of<CategoriesProvider>(context, listen: false)
