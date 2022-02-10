@@ -108,9 +108,7 @@ class _HomePageState extends State<HomePage> with Utility {
                   child: Row(
                     children: [
                       InkWell(
-                        onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => LoginPage())),
+                        onTap: () {},
                         child: Padding(
                           padding: const EdgeInsetsDirectional.only(end: 8.0),
                           child: CategoryCard(
