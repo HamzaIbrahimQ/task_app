@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:task_app/constants/constatnts.dart';
 import 'package:task_app/models/login_model.dart';
 import 'package:task_app/util/utility.dart';
 import 'package:http/http.dart' as http;
@@ -16,7 +17,7 @@ class LogInRepository with Utility {
     };
     LoginModel loginResponse = LoginModel();
     try {
-      var responseJson = await http.post(Uri.parse("https://rafiqi-backend.azurewebsites.net/api/Account/Login"), body: jsonEncode(body), headers: {"Content-Type" : "application/json"});
+      var responseJson = await http.post(Uri.parse(baseUrl+loginEnp), body: jsonEncode(body), headers: {"Content-Type" : "application/json"});
       // if (responseJson.statusCode == 200) {
         loginResponse = LoginModel.fromJson(jsonDecode(responseJson.body));
         log(responseJson.body);

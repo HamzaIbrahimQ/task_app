@@ -13,7 +13,7 @@ class CategoriesRepository with Utility {
   }) async {
     CategoriesModel loginResponse = CategoriesModel();
     try {
-      var responseJson = await http.get(Uri.parse("https://rafiqi-backend.azurewebsites.net/api/portal/categories/search") , headers: {"Authorization" : "Bearer $token"});
+      var responseJson = await http.get(Uri.parse(baseUrl+categoriesEnp) , headers: {"Authorization" : "Bearer $token"});
       loginResponse = CategoriesModel.fromJson(jsonDecode(responseJson.body));
       log(responseJson.body);
       return loginResponse;

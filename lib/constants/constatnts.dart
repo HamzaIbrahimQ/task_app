@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // App colors
-Color mainColor = const Color(0xff1C8BF3);
-Color secondColor = const Color(0xff208FF3);
-Color backgroundColor = const Color(0xffFDFEFE);
-const greyColor = Color(0xFFF0F1F5);
+const Color mainColor = Color(0xff1C8BF3);
+const Color secondColor = Color(0xff208FF3);
+const Color backgroundColor = Color(0xffFDFEFE);
+const Color greyColor = Color(0xFFF0F1F5);
 
 
 // Api links
@@ -20,10 +20,12 @@ String coursesEnp = "portal/lesson/GetEventsByEventTypeId?EventTypeId=";
 
 
 
-List dropDownList = [
+const List dropDownList = [
   '962+',
   '963+',
   '964+',
   '965+',
   '966+',
 ];
+
+const List tabs = ['الرئيسية', 'طلباتي', 'الأقسام', 'حسابي'];

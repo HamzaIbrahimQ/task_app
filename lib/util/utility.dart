@@ -152,12 +152,12 @@ mixin Utility {
                   Padding(
                     padding: const EdgeInsetsDirectional.only(start: 8.0),
                     child: Row(
-                      children: [
+                      children: const [
                         Icon(
                           Icons.location_on_outlined,
                           color: secondColor,
                         ),
-                        const Text("الرياض شارع الملك", style: TextStyle(fontSize: 12.0, color: Colors.black),),
+                        Text("الرياض شارع الملك", style: TextStyle(fontSize: 12.0, color: Colors.black),),
                       ],
                     ),
                   ),

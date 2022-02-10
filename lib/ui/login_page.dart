@@ -5,7 +5,6 @@ import 'package:task_app/constants/constatnts.dart';
 import 'package:task_app/ui/home_page.dart';
 import 'package:task_app/util/progress_hud.dart';
 import '../main.dart';
-import '../providers/homeProvider/activitiesAndCources/activities_and_cources_provider.dart';
 import '../providers/loginProvider/login_provider.dart';
 import 'package:task_app/util/utility.dart';
 
@@ -15,8 +14,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> with Utility {
-  TextEditingController userNameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController _userNameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  final _passwordFocusNode = FocusNode();
+
   final _formKey = GlobalKey<FormState>();
 
   String dropDownValue = dropDownList[0];
@@ -30,8 +31,9 @@ class _LoginPageState extends State<LoginPage> with Utility {
 
   @override
   void dispose() {
-    userNameController.dispose();
-    passwordController.dispose();
+    _userNameController.dispose();
+    _passwordController.dispose();
+    _passwordFocusNode.dispose();
     super.dispose();
   }
 
@@ -56,22 +58,18 @@ class _LoginPageState extends State<LoginPage> with Utility {
     if (!isValid) {
       return;
     }
-    if (_isLoading == true) {
-      return;
-    }
+    // if (_isLoading == true) {
+    //   return;
+    // }
     _formKey.currentState!.save();
-    setState(() {
-      _isLoading = true;
-    });
+    ProgressHud.shared.startLoading(context);
     await Provider.of<LoginProvider>(context, listen: false)
         .login(
-            userName: userNameController.text,
-            password: passwordController.text,
+            userName: _userNameController.text,
+            password: _passwordController.text,
             context: context)
         .then((value) {
-      setState(() {
-        _isLoading = false;
-      });
+      ProgressHud.shared.stopLoading();
     });
   }
 
@@ -172,18 +170,22 @@ class _LoginPageState extends State<LoginPage> with Utility {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 TextFormField(
-                                  controller: userNameController,
+                                  controller: _userNameController,
+                                  textInputAction: TextInputAction.next,
                                   validator: (val) {
                                     if (val?.isEmpty ?? false) {
-                                      return 'value empty!';
+                                      return 'ادخل رقم الهاتف من فضلك';
                                     } else {
                                       return null;
                                     }
                                   },
                                   onSaved: (val) {
                                     setState(() {
-                                      val = userNameController.text;
+                                      val = _userNameController.text;
                                     });
+                                  },
+                                  onFieldSubmitted: (_) {
+                                    FocusScope.of(context).requestFocus(_passwordFocusNode);
                                   },
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
@@ -245,17 +247,19 @@ class _LoginPageState extends State<LoginPage> with Utility {
                                   height: 24.0,
                                 ),
                                 TextFormField(
-                                  controller: passwordController,
+                                  obscureText: true,
+                                  controller: _passwordController,
+                                  focusNode: _passwordFocusNode,
                                   validator: (val) {
                                     if (val?.isEmpty ?? false) {
-                                      return 'value empty!';
+                                      return 'ادخل كلمة السر من فضلك';
                                     } else {
                                       return null;
                                     }
                                   },
                                   onSaved: (val) {
                                     setState(() {
-                                      val = passwordController.text;
+                                      val = _passwordController.text;
                                     });
                                   },
                                   decoration: InputDecoration(
@@ -266,6 +270,7 @@ class _LoginPageState extends State<LoginPage> with Utility {
                                     errorBorder: outlineInputBorder,
                                     focusedBorder: outlineInputBorder,
                                     hintText: 'كلمة السر',
+
                                     hintStyle: const TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
@@ -286,8 +291,8 @@ class _LoginPageState extends State<LoginPage> with Utility {
                                   // context: context,
                                   // msg: 'تم الضغط على الزر',
                                   // state: true),
-                                  child: Padding(
-                                    padding: const EdgeInsetsDirectional.only(
+                                  child: const Padding(
+                                    padding: EdgeInsetsDirectional.only(
                                         start: 16.0),
                                     child: Text(
                                       'نسيت كلمة السر',
@@ -296,7 +301,7 @@ class _LoginPageState extends State<LoginPage> with Utility {
                                         shadows: [
                                           Shadow(
                                             color: secondColor,
-                                            offset: const Offset(0, -5),
+                                            offset: Offset(0, -5),
                                           ),
                                         ],
                                         color: Colors.transparent,
@@ -386,14 +391,14 @@ class _LoginPageState extends State<LoginPage> with Utility {
                 onTap: () {
                   _getActivitiesAndCourses();
                 },
-                child: Text(
+                child: const Text(
                   'انشاء حساب',
                   style: TextStyle(
                     fontSize: 16,
                     shadows: [
                       Shadow(
                         color: secondColor,
-                        offset: const Offset(0, -6),
+                        offset: Offset(0, -6),
                       ),
                     ],
                     height: 3,
