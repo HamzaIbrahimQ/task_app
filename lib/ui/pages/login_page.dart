@@ -6,7 +6,6 @@ import '../../providers/loginProvider/login_provider.dart';
 import 'package:task_app/util/utility.dart';
 
 
-
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
