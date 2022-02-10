@@ -18,8 +18,6 @@ import '../categories/categories_list_view.dart';
 import '../categories/category_card.dart';
 import '../courses/courses_list_view.dart';
 
-
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -28,10 +26,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with Utility {
-
   int selectedPosition = 0;
   String _token = "";
-
 
   // We need this function to get the user Token, to send it in the Api request
   Future<String> _getToken() async {
@@ -47,12 +43,32 @@ class _HomePageState extends State<HomePage> with Utility {
         .getCategories(isActivities: false, token: _token, context: context);
     await Provider.of<ActivitiesAndCoursesProvider>(context, listen: false)
         .getActivitiesAndCourses(
-        isActivities: false, token: _token, context: context);
+            isActivities: false, token: _token, context: context);
     await Provider.of<ActivitiesAndCoursesProvider>(context, listen: false)
         .getActivitiesAndCourses(
-        isActivities: true, token: _token, context: context).then((value) {
+            isActivities: true, token: _token, context: context)
+        .then((value) {
       ProgressHud.shared.stopLoading();
     });
+
+    /// there is an another way to call Api services, call services one by one like this:
+
+    // await Provider.of<CategoriesProvider>(context, listen: false)
+    //     .getCategories(isActivities: false, token: _token, context: context)
+    //     .then((value) async {
+    //   await Provider.of<ActivitiesAndCoursesProvider>(context, listen: false)
+    //       .getActivitiesAndCourses(
+    //           isActivities: false, token: _token, context: context)
+    //       .then((value) async {
+    //     await Provider.of<ActivitiesAndCoursesProvider>(context, listen: false)
+    //         .getActivitiesAndCourses(
+    //             isActivities: true, token: _token, context: context)
+    //         .then((value) {
+    //       ProgressHud.shared.stopLoading();
+    //     });
+    //   });
+    // });
+
   }
 
   @override
@@ -62,9 +78,6 @@ class _HomePageState extends State<HomePage> with Utility {
     });
     super.initState();
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +128,8 @@ class _HomePageState extends State<HomePage> with Utility {
                         ),
                       ),
                       Expanded(
-                        child: CategoriesList(categoriesProvider: categoriesProvider),
+                        child: CategoriesList(
+                            categoriesProvider: categoriesProvider),
                       ),
                     ],
                   ),
@@ -134,25 +148,39 @@ class _HomePageState extends State<HomePage> with Utility {
                     child: SingleChildScrollView(
                       child: Wrap(
                         children: [
-                          SectionTitle(borderRadius: borderRadius, title: "الفعاليات والأنشطة",),
+                          SectionTitle(
+                            borderRadius: borderRadius,
+                            title: "الفعاليات والأنشطة",
+                          ),
                           Padding(
                             padding: const EdgeInsetsDirectional.only(
                                 top: 16.0, bottom: 16.0),
                             child: SizedBox(
                               height: 126,
-                              child: ActivitiesList(activitiesAndCoursesProvider: activitiesAndCoursesProvider, borderRadius: borderRadius),
+                              child: ActivitiesList(
+                                  activitiesAndCoursesProvider:
+                                      activitiesAndCoursesProvider,
+                                  borderRadius: borderRadius),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.only(bottom: 16.0),
-                            child:  SectionTitle(borderRadius: borderRadius, title: "الدورات",),
+                            padding:
+                                const EdgeInsetsDirectional.only(bottom: 16.0),
+                            child: SectionTitle(
+                              borderRadius: borderRadius,
+                              title: "الدورات",
+                            ),
                           ),
-                         Container(
-                           height: 400,
-                           width: double.infinity,
-                           padding: const EdgeInsetsDirectional.only(bottom: 180),
-                           child: CoursesList(activitiesAndCoursesProvider: activitiesAndCoursesProvider, borderRadius: borderRadius),
-                         ),
+                          Container(
+                            height: 400,
+                            width: double.infinity,
+                            padding:
+                                const EdgeInsetsDirectional.only(bottom: 180),
+                            child: CoursesList(
+                                activitiesAndCoursesProvider:
+                                    activitiesAndCoursesProvider,
+                                borderRadius: borderRadius),
+                          ),
                         ],
                       ),
                     ),
@@ -168,7 +196,10 @@ class _HomePageState extends State<HomePage> with Utility {
               Padding(
                 padding: const EdgeInsetsDirectional.only(top: 32),
                 child: FloatingActionButton(
-                  child: const Icon(Icons.add, size: 32,),
+                  child: const Icon(
+                    Icons.add,
+                    size: 32,
+                  ),
                   onPressed: () {},
                 ),
               ),
@@ -178,27 +209,13 @@ class _HomePageState extends State<HomePage> with Utility {
               ),
             ],
           ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: NavBar(selectedPosition: selectedPosition,),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          bottomNavigationBar: NavBar(
+            selectedPosition: selectedPosition,
+          ),
         ),
       ),
     );
   }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
