@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:task_app/providers/homeProvider/activitiesAndCources/activities_and_cources_provider.dart';
+import 'package:task_app/models/activities_and_cources_data_model.dart';
 
 import 'course_card.dart';
 
@@ -8,12 +8,10 @@ import 'course_card.dart';
 class CoursesList extends StatelessWidget {
   const CoursesList({
     Key? key,
-    required this.activitiesAndCoursesProvider,
-    required this.borderRadius,
+    required this.courses,
   }) : super(key: key);
 
-  final ActivitiesAndCoursesProvider activitiesAndCoursesProvider;
-  final BorderRadius borderRadius;
+  final List<ActivitiesAndCoursesDataModel> courses;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +24,9 @@ class CoursesList extends StatelessWidget {
             childAspectRatio: 0.7),
         physics: const BouncingScrollPhysics(),
         itemCount:
-        activitiesAndCoursesProvider.courses.length,
+        courses.length,
         itemBuilder: (context, index) {
-          return CourseCard(borderRadius: borderRadius, activitiesAndCoursesProvider: activitiesAndCoursesProvider, index: index);
+          return CourseCard(course: courses[index]);
         });
   }
 }

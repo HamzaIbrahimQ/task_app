@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:task_app/constants/constatnts.dart';
-import 'package:task_app/providers/homeProvider/activitiesAndCources/activities_and_cources_provider.dart';
+import 'package:task_app/models/activities_and_cources_data_model.dart';
+import 'package:task_app/util/utility.dart';
 
 
 
 
-class CourseCard extends StatelessWidget {
-  const CourseCard({
+class CourseCard extends StatelessWidget with Utility {
+  CourseCard({
     Key? key,
-    required this.borderRadius,
-    required this.activitiesAndCoursesProvider,
-    required this.index
+    required this.course,
   }) : super(key: key);
 
-  final BorderRadius borderRadius;
-  final ActivitiesAndCoursesProvider activitiesAndCoursesProvider;
-  final int index;
+  final ActivitiesAndCoursesDataModel course;
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +48,7 @@ class CourseCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: borderRadius,
                 child:
-                (activitiesAndCoursesProvider
-                    .courses[index]
-                    .imagePath
+                (course.imagePath
                     ?.isEmpty ??
                     false)
                     ? Container(
@@ -72,7 +67,7 @@ class CourseCard extends StatelessWidget {
                   const AssetImage(
                       'assets/images/empty.png'),
                   image: NetworkImage(
-                      'https://rafiqi-backend.azurewebsites.net/${activitiesAndCoursesProvider.courses[index].imagePath}'),
+                      'https://rafiqi-backend.azurewebsites.net/${course.imagePath}'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -117,9 +112,7 @@ class CourseCard extends StatelessWidget {
                     height: 2.0,
                   ),
                   Text(
-                    activitiesAndCoursesProvider
-                        .courses[index]
-                        .title ??
+                    course.title ??
                         "empty",
                     overflow:
                     TextOverflow.ellipsis,
@@ -149,7 +142,7 @@ class CourseCard extends StatelessWidget {
                             width: 4.0,
                           ),
                           Text(
-                            "${activitiesAndCoursesProvider.courses[index].totalHours ?? 0}",
+                            "${course.totalHours ?? 0}",
                             textAlign:
                             TextAlign.start,
                             style:
@@ -181,10 +174,7 @@ class CourseCard extends StatelessWidget {
                             width: 4.0,
                           ),
                           Text(
-                            (activitiesAndCoursesProvider
-                                .courses[
-                            index]
-                                .startDate ??
+                            (course.startDate ??
                                 "empty")
                                 .substring(0, 10),
                             textAlign:
@@ -220,9 +210,7 @@ class CourseCard extends StatelessWidget {
                         width: 2.0,
                       ),
                       Text(
-                        activitiesAndCoursesProvider
-                            .courses[index]
-                            .trainerName ??
+                        course.trainerName ??
                             "empty",
                         textAlign:
                         TextAlign.start,

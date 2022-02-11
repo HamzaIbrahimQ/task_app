@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_app/models/activities_and_cources_data_model.dart';
-import 'package:task_app/models/activities_and_courses_model.dart';
-import 'package:task_app/models/login_model.dart';
+
 import 'package:task_app/models/main_response_model.dart';
-import 'package:task_app/util/progress_hud.dart';
 import 'package:task_app/util/utility.dart';
 
 import 'activities_and_cources_repository.dart';
@@ -19,8 +16,8 @@ class ActivitiesAndCoursesProvider extends ChangeNotifier with Utility {
     return token != null;
   }
 
-  List<ActivitiesAndCoursesDataModel> _activities = [];
-  List<ActivitiesAndCoursesDataModel> _courses = [];
+  final List<ActivitiesAndCoursesDataModel> _activities = [];
+  final List<ActivitiesAndCoursesDataModel> _courses = [];
 
 
   List<ActivitiesAndCoursesDataModel> get activities {

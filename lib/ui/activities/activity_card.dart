@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:task_app/providers/homeProvider/activitiesAndCources/activities_and_cources_provider.dart';
+import 'package:task_app/models/activities_and_cources_data_model.dart';
+import 'package:task_app/util/utility.dart';
 
 
 
-class ActivityCard extends StatelessWidget {
-  const ActivityCard({
+class ActivityCard extends StatelessWidget with Utility {
+  ActivityCard({
     Key? key,
-    required this.borderRadius,
-    required this.activitiesAndCoursesProvider,
-    required this.index
+    required this.activitiy,
+
   }) : super(key: key);
 
-  final BorderRadius borderRadius;
-  final ActivitiesAndCoursesProvider activitiesAndCoursesProvider;
-  final int index;
+  final ActivitiesAndCoursesDataModel activitiy;
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +49,7 @@ class ActivityCard extends StatelessWidget {
                   .all(4.0),
               child: ClipRRect(
                 borderRadius: borderRadius,
-                child: (activitiesAndCoursesProvider
-                    .activities[index]
-                    .imagePath) ==
+                child: (activitiy.imagePath) ==
                     null
                     ? Image.asset(
                     'assets/images/empty.png')
@@ -61,7 +58,7 @@ class ActivityCard extends StatelessWidget {
                   const AssetImage(
                       'assets/images/empty.png'),
                   image: NetworkImage(
-                      'https://rafiqi-backend.azurewebsites.net/${activitiesAndCoursesProvider.activities[index].imagePath}'),
+                      'https://rafiqi-backend.azurewebsites.net/${activitiy.imagePath}'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -79,9 +76,7 @@ class ActivityCard extends StatelessWidget {
                 CrossAxisAlignment.start,
                 children: [
                   Text(
-                    activitiesAndCoursesProvider
-                        .activities[index]
-                        .title ??
+                    activitiy.title ??
                         "empty",
                     overflow:
                     TextOverflow.ellipsis,
@@ -97,10 +92,7 @@ class ActivityCard extends StatelessWidget {
                       SizedBox(
                         width: 160,
                         child: Text(
-                          activitiesAndCoursesProvider
-                              .activities[
-                          index]
-                              .description ??
+                          activitiy.description ??
                               "empty",
                           overflow: TextOverflow
                               .ellipsis,
@@ -141,10 +133,7 @@ class ActivityCard extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        (activitiesAndCoursesProvider
-                            .activities[
-                        index]
-                            .startDate ??
+                        (activitiy.startDate ??
                             "empty")
                             .substring(0, 10),
                         textAlign:

@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:task_app/util/progress_hud.dart';
 import 'categories_repository.dart';
-
 import 'package:task_app/models/categories_data_model.dart';
 import 'package:task_app/models/categories_model.dart';
 import 'package:task_app/util/utility.dart';
@@ -17,7 +15,7 @@ class CategoriesProvider extends ChangeNotifier with Utility {
     return token != null;
   }
 
-  List<CategoriesDataModel> _categories = [];
+  final List<CategoriesDataModel> _categories = [];
 
 
   List<CategoriesDataModel> get categories {

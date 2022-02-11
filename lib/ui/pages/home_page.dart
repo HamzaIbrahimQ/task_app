@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,15 +7,14 @@ import '../../components/bottom_nav_bar.dart';
 import '../../components/section_title.dart';
 import '../../providers/homeProvider/activitiesAndCources/activities_and_cources_provider.dart';
 import '../../providers/homeProvider/categories/categories_provider.dart';
-import 'login_page.dart';
 import 'package:task_app/util/progress_hud.dart';
-
 import 'package:task_app/util/utility.dart';
-
 import '../activities/activities_list_view.dart';
 import '../categories/categories_list_view.dart';
 import '../categories/category_card.dart';
 import '../courses/courses_list_view.dart';
+
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -68,7 +66,6 @@ class _HomePageState extends State<HomePage> with Utility {
     //     });
     //   });
     // });
-
   }
 
   @override
@@ -127,7 +124,7 @@ class _HomePageState extends State<HomePage> with Utility {
                       ),
                       Expanded(
                         child: CategoriesList(
-                            categoriesProvider: categoriesProvider),
+                            categories: categoriesProvider.categories),
                       ),
                     ],
                   ),
@@ -156,9 +153,9 @@ class _HomePageState extends State<HomePage> with Utility {
                             child: SizedBox(
                               height: 126,
                               child: ActivitiesList(
-                                  activitiesAndCoursesProvider:
-                                      activitiesAndCoursesProvider,
-                                  borderRadius: borderRadius),
+                                activities:
+                                    activitiesAndCoursesProvider.activities,
+                              ),
                             ),
                           ),
                           Padding(
@@ -175,9 +172,8 @@ class _HomePageState extends State<HomePage> with Utility {
                             padding:
                                 const EdgeInsetsDirectional.only(bottom: 180),
                             child: CoursesList(
-                                activitiesAndCoursesProvider:
-                                    activitiesAndCoursesProvider,
-                                borderRadius: borderRadius),
+                              courses: activitiesAndCoursesProvider.courses,
+                            ),
                           ),
                         ],
                       ),
