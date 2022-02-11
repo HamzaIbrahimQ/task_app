@@ -4,9 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:task_app/constants/constatnts.dart';
 
-
-
-
 mixin Utility {
   Future showDialogSheet(BuildContext context, Widget child,
       {bool? isDismissible}) {
@@ -114,7 +111,6 @@ mixin Utility {
       automaticallyImplyLeading: true,
       centerTitle: true,
       elevation: 0,
-      // toolbarHeight: MediaQuery.of(context).size.height / 9,
       toolbarHeight: 130,
       leading: Padding(
         padding: const EdgeInsetsDirectional.only(
@@ -138,7 +134,8 @@ mixin Utility {
           children: [
             Text(
               title ?? "",
-              style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  color: Colors.black, fontWeight: FontWeight.bold),
             ),
             Container(
               width: 172,
@@ -158,7 +155,10 @@ mixin Utility {
                           Icons.location_on_outlined,
                           color: secondColor,
                         ),
-                        Text("الرياض شارع الملك", style: TextStyle(fontSize: 12.0, color: Colors.black),),
+                        Text(
+                          "الرياض شارع الملك",
+                          style: TextStyle(fontSize: 12.0, color: Colors.black),
+                        ),
                       ],
                     ),
                   ),
@@ -174,7 +174,11 @@ mixin Utility {
                         child: IconButton(
                           alignment: Alignment.center,
                           onPressed: () {},
-                          icon: const Icon(Icons.keyboard_arrow_down, size: 20, color: Colors.black,),
+                          icon: const Icon(
+                            Icons.keyboard_arrow_down,
+                            size: 20,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ),
@@ -194,11 +198,13 @@ mixin Utility {
           ),
           child: CircleAvatar(
             radius: 20,
-            child: Icon(Icons.notifications_outlined, size: 22.0,),
+            child: Icon(
+              Icons.notifications_outlined,
+              size: 22.0,
+            ),
           ),
         ),
       ],
     );
   }
-
 }
